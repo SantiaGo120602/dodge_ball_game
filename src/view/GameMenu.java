@@ -2,26 +2,23 @@ package src.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameMenu extends JFrame {
 
+    private ArrayList<ImageButton> buttons;
     public GameMenu() {
         setTitle("ImageButton Frame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1920, 980);
 
         BackgroundImagePanel backgroundImagePanel = new BackgroundImagePanel("src/resources/ui_components/background.jpg");
-
-        ImageButton button1 = new ImageButton("src/resources/ui_components/PlayButton.png", 200, 100);
-        ImageButton button2 = new ImageButton("src/resources/ui_components/NewgameButton.png", 200, 100);
-        ImageButton button3 = new ImageButton("src/resources/ui_components/SettingsButton.png", 200, 100);
-        ImageButton button4 = new ImageButton("src/resources/ui_components/ExitButton.png", 200, 100);
-
+        
         backgroundImagePanel.setBackground(new Color(0, 0, 0, 0));
-        backgroundImagePanel.add(button1);
-        backgroundImagePanel.add(button2);
-        backgroundImagePanel.add(button3);
-        backgroundImagePanel.add(button4);
+
+        for (ImageButton button : buttons){
+            backgroundImagePanel.add(button);
+        }
 
         add(backgroundImagePanel);
     }
