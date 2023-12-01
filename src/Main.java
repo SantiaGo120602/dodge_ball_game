@@ -16,7 +16,13 @@ public class Main {
         GameModel model = new GameModel(ApplicationState.getInstance(new GameState(100), Menu.MAIN_MENU));
         GameView view = new GameView(model);
         UserInputController userInputController = new UserInputController(model, view);
-        UDPController udpController = new UDPController(model, view, new UDPServer(null, 0));
+        UDPServer server = null;
+        try {
+            server = new UDPServer("172.30.10.151", 7850);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        UDPController udpController = new UDPController(model, view, server);
         JFrame frame = userInputController.getView().getDisplayFrame();
         frame.setVisible(true);
         Thread movementThread = new Thread(model.getApplicationState().getGameState().getLabelMovementTask());
