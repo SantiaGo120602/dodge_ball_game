@@ -1,5 +1,7 @@
 package src.model;
 
+import java.awt.Container;
+
 public class Ball extends GameEntity {
     private Team team;
     public Ball(int x, int y, int speed, int direction, Team team, int id) {
@@ -8,8 +10,7 @@ public class Ball extends GameEntity {
     }
 
     @Override
-    public void update(GameState GameState) {
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public void update(GameState gameState) {
     }
 
     public Team getTeam() {
@@ -18,6 +19,17 @@ public class Ball extends GameEntity {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    @Override
+    public void updateSprite() {
+        if ((this.getxSpeed() != 0) || (this.getySpeed() != 0)){
+            if (this.getSprite() == SpriteFactory.getSprite(SpriteID.BALL_STATIC)){
+                this.setSprite(SpriteFactory.getSprite(SpriteID.BALL_MOVING));
+            }
+        } else {
+            this.setSprite(SpriteFactory.getSprite(SpriteID.BALL_STATIC));
+        }
     }
 
     

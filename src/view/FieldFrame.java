@@ -57,20 +57,20 @@ public class FieldFrame extends JFrame {
     public JLabel getLocalScore() {
         return localScore;
     }
-    public void setLocalScore(JLabel localScore) {
-        this.localScore = localScore;
+    public void setLocalScore(Integer localScore) {
+        this.localScore.setText(Integer.toString(localScore));
     }
     public JLabel getOtherScore() {
         return otherScore;
     }
-    public void setOtherScore(JLabel otherScore) {
-        this.otherScore = otherScore;
+    public void setOtherScore(Integer otherScore) {
+        this.otherScore.setText(Integer.toString(otherScore));;
     }
     public JLabel getTimeLeft() {
         return timeLeft;
     }
-    public void setTimeLeft(JLabel timeLeft) {
-        this.timeLeft = timeLeft;
+    public void setTimeLeft(Integer timeLeft) {
+        this.timeLeft.setText(Integer.toString(timeLeft));
     }
     public FieldEntity getFieldEntity() {
         return fieldEntity;

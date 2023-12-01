@@ -18,11 +18,14 @@ public class GameView {
     
     private ImageButton audioSquareButton = new ImageButton("src/resources/ui_components/AudioSquareButton.png", 200, 200);
     private ImageButton quiestionMarkSquareButton = new ImageButton("src/resources/ui_components/QuestionmarkSquareButton.png", 200, 200);
-    private ImageButton backButton = new ImageButton("src/resources/ui_components/BackButton.png", 200, 100);
-    private ImageButton exitButton = new ImageButton("src/resources/ui_components/ExitButton.png", 200, 100);
+    private ImageButton pauseBackButton = new ImageButton("src/resources/ui_components/BackButton.png", 200, 100);
+    private ImageButton settingsBackButton = new ImageButton("src/resources/ui_components/BackButton.png", 200, 100);
+    private ImageButton mainExitButton = new ImageButton("src/resources/ui_components/ExitButton.png", 200, 100);
+    private ImageButton pauseExitButton = new ImageButton("src/resources/ui_components/ExitButton.png", 200, 100);
     private ImageButton newgameButton = new ImageButton("src/resources/ui_components/NewgameButton.png", 200, 100);
     private ImageButton playButton = new ImageButton("src/resources/ui_components/PlayButton.png", 200, 100);
-    private ImageButton settingsButton = new ImageButton("src/resources/ui_components/SettingsButton.png", 200, 100);
+    private ImageButton mainSettingsButton = new ImageButton("src/resources/ui_components/SettingsButton.png", 200, 100);
+    private ImageButton pauseSettingsButton = new ImageButton("src/resources/ui_components/SettingsButton.png", 200, 100);
     private ImageButton quitButton = new ImageButton("src/resources/ui_components/QuitButton.png", 200, 100);
     
     private JFrame displayFrame;
@@ -33,32 +36,24 @@ public class GameView {
         ArrayList<ImageButton> mainMenuButtons = new ArrayList<>();
         mainMenuButtons.add(playButton);
         mainMenuButtons.add(newgameButton);
-        mainMenuButtons.add(settingsButton);
-        mainMenuButtons.add(exitButton);
+        mainMenuButtons.add(mainSettingsButton);
+        mainMenuButtons.add(mainExitButton);
         menuMap.put(Menu.MAIN_MENU, new GameMenu("Main Menu", mainMenuButtons));
 
 
         ArrayList<ImageButton> pauseMenuButtons = new ArrayList<>();
-        pauseMenuButtons.add(backButton);
-        pauseMenuButtons.add(settingsButton);
+        pauseMenuButtons.add(pauseBackButton);
+        pauseMenuButtons.add(pauseSettingsButton);
         pauseMenuButtons.add(quitButton);
-        pauseMenuButtons.add(exitButton);
+        pauseMenuButtons.add(pauseExitButton);
         menuMap.put(Menu.PAUSE_MENU, new GameMenu("Pause Menu", pauseMenuButtons));
 
 
         ArrayList<ImageButton> configurationMenuButtons = new ArrayList<>();
         configurationMenuButtons.add(quiestionMarkSquareButton);
         configurationMenuButtons.add(audioSquareButton);
-        configurationMenuButtons.add(backButton);
+        configurationMenuButtons.add(settingsBackButton);
         menuMap.put(Menu.CONFIGURATION_MENU, new GameMenu("Configuration Menu", configurationMenuButtons));
-
-        playButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("hola");
-                displayFrame = fieldFrame;
-            }
-        });
 
 
         this.fieldFrame = new FieldFrame(Integer.toString(model.getApplicationState().getGameState().getScore().get(Team.LOCAL_TEAM)),
@@ -74,8 +69,31 @@ public class GameView {
         else {
             this.displayFrame = fieldFrame;
         }
+    }
 
+    public void updateView(GameModel modelv){
+        fieldFrame.setLocalScore(modelv.getApplicationState().getGameState().getScore().get(Team.LOCAL_TEAM));
+        fieldFrame.setOtherScore(modelv.getApplicationState().getGameState().getScore().get(Team.OTHER_TEAM));
+        fieldFrame.setTimeLeft(modelv.getApplicationState().getGameState().getTimeLeft());
+        if (modelv.getApplicationState().getCurrentMenu() != null){
+            if (menuMap.get(modelv.getApplicationState().getCurrentMenu()) != this.gameMenu){
+                this.displayFrame.dispose();
+                this.gameMenu = menuMap.get(modelv.getApplicationState().getCurrentMenu());
+                this.displayFrame = this.gameMenu;
+                displayFrame.setVisible(true);
+            }
+            
+            this.displayFrame = this.gameMenu;
+        }
+        else {
+            this.displayFrame.dispose();
+            this.displayFrame = fieldFrame;
+            displayFrame.setVisible(true);
+        }
+    }
 
+    public void setDisplayFrame(JFrame displayFrame) {
+        this.displayFrame = displayFrame;
     }
 
     public ImageButton getAudioSquareButton() {
@@ -86,12 +104,20 @@ public class GameView {
         return quiestionMarkSquareButton;
     }
 
-    public ImageButton getBackButton() {
-        return backButton;
+    public ImageButton getPauseBackButton() {
+        return pauseBackButton;
     }
 
-    public ImageButton getExitButton() {
-        return exitButton;
+    public ImageButton getSettingsBackButton() {
+        return settingsBackButton;
+    }
+
+    public ImageButton getMainExitButton() {
+        return mainExitButton;
+    }
+
+    public ImageButton getPauseExitButton() {
+        return pauseExitButton;
     }
 
     public ImageButton getNewgameButton() {
@@ -102,32 +128,27 @@ public class GameView {
         return playButton;
     }
 
-    public ImageButton getSettingsButton() {
-        return settingsButton;
+    public ImageButton getMainSettingsButton() {
+        return mainSettingsButton;
+    }
+
+    public ImageButton getPauseSettingsButton() {
+        return pauseSettingsButton;
     }
 
     public ImageButton getQuitButton() {
         return quitButton;
     }
 
-    public GameMenu getGameMenu() {
-        return gameMenu;
-    }
-    public void setGameMenu(GameMenu gameMenu) {
-        this.gameMenu = gameMenu;
-    }
-    public FieldFrame getFieldFrame() {
-        return fieldFrame;
-    }
-    public void setFieldFrame(FieldFrame fieldFrame) {
-        this.fieldFrame = fieldFrame;
-    }
-
     public JFrame getDisplayFrame() {
         return displayFrame;
     }
 
-    public void setDisplayFrame(JFrame displayFrame) {
-        this.displayFrame = displayFrame;
+    public GameMenu getGameMenu() {
+        return gameMenu;
+    }
+
+    public FieldFrame getFieldFrame() {
+        return fieldFrame;
     }
 }

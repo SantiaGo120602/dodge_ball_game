@@ -3,22 +3,32 @@ package src.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.SwingUtilities;
+
 public class GameState {
     private ArrayList<GameEntity> entities;
+    private Player focusedPlayer; 
     private FieldEntity field;
     public HashMap<Team, Integer> score;
     public Team winner;
     public int timeLeft;
+    public LabelMovementTask labelMovementTask;
 
-    public GameState(int timeLeft) {
+    public GameState(int timeLeft){
+        String characters = "uiop";
         this.entities = new ArrayList<>();
         int lasty = 220;
         for (int i = 0; i < 4; i++){
             Ball ball = null;
             if (i < 2){
-                ball = new Ball(100, lasty, 0, 0, Team.LOCAL_TEAM, i+10);
+                ball = new Ball(160, lasty, 0, 0, Team.LOCAL_TEAM, i+10);
             }
-            entities.add(new Player(SpriteID.PLAYER_RIGHT_IDLE, 100, lasty, 0, 0, Team.LOCAL_TEAM, ball, null, i));
+            
+            Player player = new Player(SpriteID.PLAYER_RIGHT_IDLE, 100, lasty, 0, 0, Team.LOCAL_TEAM, ball, Character.toString(characters.charAt(i)), i);
+            if (i == 0){
+                focusedPlayer = player; 
+            }
+            entities.add(player);
             if (ball != null){
                 entities.add(ball);
             }
@@ -27,10 +37,10 @@ public class GameState {
         lasty = 220;
         for (int i = 4; i < 8; i++){
             Ball ball = null;
-            if (i > 1){
-                ball = new Ball(1720, lasty, 0, 0, Team.LOCAL_TEAM, i+10);
+            if (i > 5){
+                ball = new Ball(1700, lasty, 0, 0, Team.OTHER_TEAM, i+10);
             }
-            entities.add(new Player(SpriteID.PLAYER_LEFT_IDLE, 1720, lasty, 0, 0, Team.OTHER_TEAM, ball, null, i));
+            entities.add(new Player(SpriteID.PLAYER_LEFT_IDLE, 1720, lasty, 0, 0, Team.OTHER_TEAM, ball, Character.toString(characters.charAt(i-4)), i));
             if (ball != null){
                 entities.add(ball);
             }
@@ -42,6 +52,8 @@ public class GameState {
         this.score.put(Team.OTHER_TEAM, 0);
         this.winner = null;
         this.timeLeft = timeLeft;
+        this.labelMovementTask = new LabelMovementTask(entities);
+
     }
 
     public void registerEntity(GameEntity e){
@@ -51,7 +63,13 @@ public class GameState {
     public void unregisterEntity(GameEntity e){
         entities.remove(e);
     }
+    public Player getFocusedPlayer() {
+        return focusedPlayer;
+    }
 
+    public void setFocusedPlayer(Player focusedPlayer) {
+        this.focusedPlayer = focusedPlayer;
+    }
     public void notifyEntities(){
         for (GameEntity entity : entities){
             entity.update(this);
@@ -80,5 +98,36 @@ public class GameState {
 
     public void setWinner(Team team) {
         winner = team;
+    }
+
+    public LabelMovementTask getLabelMovementTask() {
+        return labelMovementTask;
+    }
+
+    public void setLabelMovementTask(LabelMovementTask labelMovementTask) {
+        this.labelMovementTask = labelMovementTask;
+    }
+
+    public void runGameLoop() {
+        // Your game loop logic goes here
+        while (true) {
+            // Update game state
+            notifyEntities();
+
+            // Perform other game-related tasks
+
+            // Update Swing components on the event dispatch thread
+            SwingUtilities.invokeLater(() -> {
+                // Update Swing components based on the game state
+                // This can include updating labels, drawing entities, etc.
+            });
+
+            // Sleep or delay for a short interval (e.g., 16 milliseconds for 60 FPS)
+            try {
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

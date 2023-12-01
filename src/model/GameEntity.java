@@ -3,18 +3,18 @@ package src.model;
 import javax.swing.*;
 
 public abstract class GameEntity extends JLabel {
-    private int x, y, width, height, speed, direction, playerID;
+    private int x, y, width, height, xSpeed, ySpeed, playerID;
     private Sprite sprite;
 
-    public GameEntity(SpriteID id, int x, int y, int width, int height, int speed, int direction, int playerID) {
+    public GameEntity(SpriteID id, int x, int y, int width, int height, int xSpeed, int ySpeed, int playerID) {
         super(SpriteFactory.getSprite(id).getIcon());
         this.sprite = SpriteFactory.getSprite(id);
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.speed = speed;
-        this.direction = direction;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
         this.playerID = playerID;
         setBounds(x, y, width, height);
     }
@@ -33,14 +33,6 @@ public abstract class GameEntity extends JLabel {
 
     public int getHeight() {
         return height;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public int getDirection() {
-        return direction;
     }
 
     public Sprite getSprite() {
@@ -67,28 +59,40 @@ public abstract class GameEntity extends JLabel {
         this.height = height;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
-
     public void setPlayerID(int playerID) {
         this.playerID = playerID;
     }
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
+        super.setIcon(sprite.getIcon());
     }
 
-    public void move(int newX, int newY) {
-        this.x = newX;
-        this.y = newY;
+    public void move() {
+        this.x+= this.xSpeed;
+        this.y+= this.ySpeed;
         setBounds(x, y, width, height);
     }
 
-    public abstract void update(GameState GameState);
+    public abstract void update(GameState gameState);
+    public abstract void updateSprite();
+
+    public int getxSpeed() {
+        return xSpeed;
+    }
+
+    public void setxSpeed(int xSpeed) {
+        this.xSpeed = xSpeed;
+        updateSprite();
+    }
+
+    public int getySpeed() {
+        return ySpeed;
+    }
+
+    public void setySpeed(int ySpeed) {
+        this.ySpeed = ySpeed;
+        updateSprite();
+    }
 
 }

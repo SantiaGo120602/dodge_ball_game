@@ -7,7 +7,10 @@ public class FieldEntity extends GameEntity{
     }
 
     @Override
-    public void update(GameState GameState) {
+    public void update(GameState gameState) {
+    }
+    @Override
+    public void updateSprite() {
     }
 
 }

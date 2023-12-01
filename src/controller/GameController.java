@@ -13,4 +13,14 @@ public abstract class GameController {
     }
 
     public abstract void updateView();
+
+    public GameModel getModel() {
+        return model;
+    }
+
+    public GameView getView() {
+        return view;
+    }
+
+    
 }

@@ -29,7 +29,7 @@ public class GameMenu extends JFrame {
 
         public BackgroundImagePanel(String fileName) {
             this.backgroundImage = new ImageIcon(fileName).getImage();
-            setLayout(new GridLayout(0, 1, 0, 0));
+            setLayout(new GridLayout(0, 1, 5, 0));
         }
 
         @Override
