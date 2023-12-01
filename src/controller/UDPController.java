@@ -2,9 +2,6 @@ package src.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import javax.swing.text.html.parser.Entity;
-
 import src.model.Ball;
 import src.model.GameEntity;
 import src.model.GameModel;
@@ -22,7 +19,7 @@ public class UDPController extends GameController {
 
     @Override
     public void updateView() {
-        throw new UnsupportedOperationException("Unimplemented method 'updateView'");
+        this.getView().updateView(this.getModel());;
     }
 
     public void updateModel(){
@@ -54,6 +51,7 @@ public class UDPController extends GameController {
                 }
 
                 String singleString = String.join(",", originalList);
+                System.out.println(singleString);
                 socket.sendData(singleString);
 
                 String recivedData = socket.recieveData();
@@ -80,6 +78,7 @@ public class UDPController extends GameController {
                     }
                     }
                 }
+                updateView();
             }
         }
     }

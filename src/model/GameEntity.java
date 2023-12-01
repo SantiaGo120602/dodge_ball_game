@@ -71,6 +71,17 @@ public abstract class GameEntity extends JLabel {
     public void move() {
         this.x+= this.xSpeed;
         this.y+= this.ySpeed;
+        if (this.x < 0){
+            this.x = 0;
+        } else if (this.x > (1920 - this.width)){
+            this.x = 1920 - this.width;
+        }
+        if (this.y < 0){
+            this.y = 0;
+        } else if (this.y > (980 - this.height)){
+            this.y = 980 - this.height;
+        }
+
         setBounds(x, y, width, height);
     }
 

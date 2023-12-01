@@ -1,13 +1,8 @@
 package src.view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import src.model.GameModel;
 import src.model.Menu;
 import src.model.Team;

@@ -18,16 +18,6 @@ public class UDPClient implements AbstractUDPSocket{
     }
 
     @Override
-    public void openConnection() {
-        throw new UnsupportedOperationException("Unimplemented method 'openConnection'");
-    }
-
-    @Override
-    public void closeConnection() {
-        throw new UnsupportedOperationException("Unimplemented method 'closeConnection'");
-    }
-
-    @Override
     public void sendData(String sendData) {
         Thread sendThread = new Thread(() -> {
             try {

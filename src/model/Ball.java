@@ -1,7 +1,4 @@
 package src.model;
-
-import java.awt.Container;
-
 public class Ball extends GameEntity {
     private Team team;
     public Ball(int x, int y, int speed, int direction, Team team, int id) {
