@@ -1,10 +1,7 @@
 package src.view;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class GameMenu extends JFrame {
 
@@ -13,23 +10,33 @@ public class GameMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1920, 980);
 
-        // Create buttons with PNGs
-        ImageButton button1 = new ImageButton("src/resources/ui_components/PlayButton.png", 100, 50);
-        ImageButton button2 = new ImageButton("src/resources/ui_components/NewgameButton.png", 100, 50);
-        ImageButton button3 = new ImageButton("src/resources/ui_components/SettingsButton.png", 100, 50);
-        ImageButton button4 = new ImageButton("src/resources/ui_components/ExitButton.png", 100, 50);
+        BackgroundImagePanel backgroundImagePanel = new BackgroundImagePanel("src/resources/ui_components/background.jpg");
 
+        ImageButton button1 = new ImageButton("src/resources/ui_components/PlayButton.png", 200, 100);
+        ImageButton button2 = new ImageButton("src/resources/ui_components/NewgameButton.png", 200, 100);
+        ImageButton button3 = new ImageButton("src/resources/ui_components/SettingsButton.png", 200, 100);
+        ImageButton button4 = new ImageButton("src/resources/ui_components/ExitButton.png", 200, 100);
 
-        // JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        // panel.setLayout(new FlowLayout());
-        // panel.add(button1);
-        // panel.add(button2);
-        // panel.add(button3);
-        // panel.add(button4);
+        backgroundImagePanel.setBackground(new Color(0, 0, 0, 0));
+        backgroundImagePanel.add(button1);
+        backgroundImagePanel.add(button2);
+        backgroundImagePanel.add(button3);
+        backgroundImagePanel.add(button4);
 
-        // add(panel, BorderLayout.CENTER);
-        setContentPane(new JLabel(new ImageIcon("src/resources/ui_components/background.jpg")));
-        setLayout(new BorderLayout());
+        add(backgroundImagePanel);
     }
+    private static class BackgroundImagePanel extends JPanel {
+        private Image backgroundImage;
 
+        public BackgroundImagePanel(String fileName) {
+            this.backgroundImage = new ImageIcon(fileName).getImage();
+            setLayout(new GridLayout(0, 1, 0, 0));
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
 }
