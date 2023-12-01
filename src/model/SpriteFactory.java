@@ -14,5 +14,8 @@ public class SpriteFactory {
         }
     }
 
+    public static Sprite getSprite(SpriteID id){
+        return spriteMap.get(id);
+    }
     
 }
