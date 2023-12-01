@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameState {
-    private ArrayList<Entity> entities;
+    private ArrayList<GameEntity> entities;
     private FieldEntity field;
     public HashMap<Team, Integer> score;
     public Team winner;
@@ -12,7 +12,7 @@ public class GameState {
 
     public GameState(int timeLeft) {
         this.entities = new ArrayList<>();
-        this.field = new FieldEntity(SpriteID.FIELD, 0, 0, 1920, 980, 0, 0);
+        this.field = new FieldEntity();
         this.score = new HashMap<>();
         this.score.put(Team.LOCAL_TEAM, 0);
         this.score.put(Team.OTHER_TEAM, 0);
@@ -20,21 +20,21 @@ public class GameState {
         this.timeLeft = timeLeft;
     }
 
-    public void registerEntity(Entity e){
+    public void registerEntity(GameEntity e){
         entities.add(e);
     }
     
-    public void unregisterEntity(Entity e){
+    public void unregisterEntity(GameEntity e){
         entities.remove(e);
     }
 
     public void notifyEntities(){
-        for (Entity entity : entities){
+        for (GameEntity entity : entities){
             entity.update(this);
         }
     }
 
-    public ArrayList<Entity> getEntities() {
+    public ArrayList<GameEntity> getEntities() {
         return entities;
     }
 

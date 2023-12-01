@@ -11,6 +11,5 @@ public class GameView {
     private ImageButton quitButton = new ImageButton("src/resources/ui_components/QuitButton.png", 200, 100);
 
     private GameMenu gameMenu;
-    private GameFrame gameFrame;
-    
+    private FieldFrame fieldFrame;
 }

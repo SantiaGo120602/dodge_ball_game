@@ -1,9 +1,9 @@
 package src.model;
 
-public class FieldEntity extends Entity{
+public class FieldEntity extends GameEntity{
 
-    public FieldEntity(SpriteID id, int x, int y, int width, int height, int speed, int direction) {
-        super(id, x, y, width, height, speed, direction);
+    public FieldEntity() {
+        super(SpriteID.FIELD, 0, 0, 1920, 980, 0, 0);
     }
 
     @Override

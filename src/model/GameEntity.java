@@ -2,11 +2,11 @@ package src.model;
 
 import javax.swing.*;
 
-public abstract class Entity extends JLabel {
+public abstract class GameEntity extends JLabel {
     private int x, y, width, height, speed, direction;
     private Sprite sprite;
 
-    public Entity(SpriteID id, int x, int y, int width, int height, int speed, int direction) {
+    public GameEntity(SpriteID id, int x, int y, int width, int height, int speed, int direction) {
         super(SpriteFactory.getSprite(id).getIcon());
         this.sprite = SpriteFactory.getSprite(id);
         this.x = x;
