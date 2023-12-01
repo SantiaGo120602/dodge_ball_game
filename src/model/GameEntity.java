@@ -82,6 +82,15 @@ public abstract class GameEntity extends JLabel {
             this.y = 980 - this.height;
         }
 
+        if (this instanceof Player){
+            Player p = (Player) this;
+            if (p.getTeam() == Team.LOCAL_TEAM){
+                if (this.x > (960)){
+                    this.x = 960;
+                }
+            }
+        }
+
         setBounds(x, y, width, height);
     }
 

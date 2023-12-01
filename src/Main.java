@@ -18,7 +18,7 @@ public class Main {
         UserInputController userInputController = new UserInputController(model, view);
         UDPServer server = null;
         try {
-            server = new UDPServer("172.30.10.151", 7850);
+            server = new UDPServer("168.228.124.133", 9876);
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -31,6 +31,8 @@ public class Main {
             gameThread.start();
         Thread communicationThread = new Thread(() -> udpController.startCommunication());
             communicationThread.start();
+        Thread pThread = new Thread(() -> udpController.startRecieving());
+            pThread.start();
     }
 
    
