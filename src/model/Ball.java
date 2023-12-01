@@ -2,8 +2,8 @@ package src.model;
 
 public class Ball extends GameEntity {
     private Team team;
-    public Ball(int x, int y, int speed, int direction, Team team) {
-        super(SpriteID.BALL_STATIC, x, y, 30, 30, speed, direction);
+    public Ball(int x, int y, int speed, int direction, Team team, int id) {
+        super(SpriteID.BALL_STATIC, x, y, 30, 30, speed, direction, id);
         this.team = team;
     }
 

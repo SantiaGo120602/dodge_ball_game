@@ -7,8 +7,10 @@ import java.util.ArrayList;
 public class GameMenu extends JFrame {
 
     private ArrayList<ImageButton> buttons;
-    public GameMenu() {
-        setTitle("ImageButton Frame");
+
+    public GameMenu(String name, ArrayList<ImageButton> buttons) {
+        this.buttons = buttons;
+        setTitle(name);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1920, 980);
 
@@ -35,5 +37,9 @@ public class GameMenu extends JFrame {
             super.paintComponent(g);
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
+    }
+
+    public ArrayList<ImageButton> getButtons() {
+        return buttons;
     }
 }

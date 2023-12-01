@@ -12,6 +12,30 @@ public class GameState {
 
     public GameState(int timeLeft) {
         this.entities = new ArrayList<>();
+        int lasty = 220;
+        for (int i = 0; i < 4; i++){
+            Ball ball = null;
+            if (i < 2){
+                ball = new Ball(100, lasty, 0, 0, Team.LOCAL_TEAM, i+10);
+            }
+            entities.add(new Player(SpriteID.PLAYER_RIGHT_IDLE, 100, lasty, 0, 0, Team.LOCAL_TEAM, ball, null, i));
+            if (ball != null){
+                entities.add(ball);
+            }
+            lasty += 110;
+        }
+        lasty = 220;
+        for (int i = 4; i < 8; i++){
+            Ball ball = null;
+            if (i > 1){
+                ball = new Ball(1720, lasty, 0, 0, Team.LOCAL_TEAM, i+10);
+            }
+            entities.add(new Player(SpriteID.PLAYER_LEFT_IDLE, 1720, lasty, 0, 0, Team.OTHER_TEAM, ball, null, i));
+            if (ball != null){
+                entities.add(ball);
+            }
+            lasty += 110;
+        }
         this.field = new FieldEntity();
         this.score = new HashMap<>();
         this.score.put(Team.LOCAL_TEAM, 0);

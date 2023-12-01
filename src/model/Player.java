@@ -6,8 +6,8 @@ public class Player extends GameEntity {
     private Team team;
     private Ball ball;
     private JLabel keyTag;
-    public Player(SpriteID id, int x, int y, int speed, int direction, Team team, Ball ball, JLabel label) {
-        super(id, x, y, 70, 90, speed, direction);
+    public Player(SpriteID id, int x, int y, int speed, int direction, Team team, Ball ball, JLabel label, int Pid) {
+        super(id, x, y, 70, 90, speed, direction, Pid);
         this.team = team;
         this.ball = ball;
         this.keyTag = label;

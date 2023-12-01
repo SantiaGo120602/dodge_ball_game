@@ -26,10 +26,6 @@ public class ApplicationState {
         return applicationInstance;
     }
 
-    public static ApplicationState getApplicationInstance() {
-        return applicationInstance;
-    }
-
     public static void setApplicationInstance(ApplicationState applicationInstance) {
         ApplicationState.applicationInstance = applicationInstance;
     }
