@@ -1,5 +1,6 @@
 package src.controller;
 
+import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -28,11 +29,34 @@ public class UDPClient implements AbstractUDPSocket{
 
     @Override
     public void sendData(String sendData) {
-        throw new UnsupportedOperationException("Unimplemented method 'sendData'");
+        Thread sendThread = new Thread(() -> {
+            try {
+
+                    byte[] data = sendData.getBytes();
+                    DatagramPacket packet = new DatagramPacket(data, data.length, serverAddress, serverPort);
+                    socket.send(packet);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        sendThread.start();
     }
 
     @Override
     public String recieveData() {
-        throw new UnsupportedOperationException("Unimplemented method 'recieveData'");
+        byte[] receiveBuffer = new byte[1024]; // Adjust the buffer size as needed
+        DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+
+        try {
+            socket.receive(receivePacket);
+            String receivedData = new String(receivePacket.getData(), 0, receivePacket.getLength());
+
+            return receivedData;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }    
 }
