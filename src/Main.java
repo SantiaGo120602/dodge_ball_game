@@ -3,6 +3,7 @@ package src;
 import javax.swing.JFrame;
 
 import src.controller.UDPController;
+import src.controller.UDPServer;
 import src.controller.UserInputController;
 import src.model.ApplicationState;
 import src.model.GameModel;
@@ -15,7 +16,7 @@ public class Main {
         GameModel model = new GameModel(ApplicationState.getInstance(new GameState(100), Menu.MAIN_MENU));
         GameView view = new GameView(model);
         UserInputController userInputController = new UserInputController(model, view);
-        UDPController udpController = new UDPController(model, view);
+        UDPController udpController = new UDPController(model, view, new UDPServer(null, 0));
         JFrame frame = userInputController.getView().getDisplayFrame();
         frame.setVisible(true);
         Thread movementThread = new Thread(model.getApplicationState().getGameState().getLabelMovementTask());

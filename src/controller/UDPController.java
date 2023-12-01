@@ -13,8 +13,9 @@ public class UDPController extends GameController {
 
     private AbstractUDPSocket socket;
     
-    public UDPController(GameModel model, GameView view) {
+    public UDPController(GameModel model, GameView view, AbstractUDPSocket socket) {
         super(model, view);
+        this.socket = socket;
     }
 
     @Override
